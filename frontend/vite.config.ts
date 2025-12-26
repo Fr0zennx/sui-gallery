@@ -11,6 +11,14 @@ export default defineConfig({
       host: '127.0.0.1',
       port: 5173,
     },
+    middlewareMode: false,
+    middleware: [
+      (req, res, next) => {
+        // Remove CSP header for development
+        res.removeHeader('Content-Security-Policy');
+        next();
+      },
+    ],
   },
   resolve: {
     alias: {
