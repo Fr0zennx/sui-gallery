@@ -1,7 +1,7 @@
-import { useWallet } from '@mysten/dapp-kit'
+import { useConnectWallet } from '@mysten/dapp-kit'
 
 export default function ConnectWallet() {
-  const { connect, wallets } = useWallet()
+  const { mutate: connect, isPending } = useConnectWallet()
 
   return (
     <div className="min-h-screen bg-black text-white flex items-center justify-center">
@@ -15,21 +15,16 @@ export default function ConnectWallet() {
         </p>
 
         <div className="space-y-4">
-          {wallets.length > 0 ? (
-            wallets.map((wallet) => (
-              <button
-                key={wallet.name}
-                onClick={() => connect(wallet.name)}
-                className="w-full px-8 py-3 bg-neon-orange hover:bg-orange-600 text-black font-bold rounded-lg transition-colors neon-glow-hover"
-              >
-                Connect {wallet.name}
-              </button>
-            ))
-          ) : (
-            <p className="text-gray-500">
-              No wallets detected. Please install a Sui wallet.
-            </p>
-          )}
+          <button
+            onClick={() => connect()}
+            disabled={isPending}
+            className="w-full px-8 py-3 bg-neon-orange hover:bg-orange-600 disabled:bg-gray-600 text-black font-bold rounded-lg transition-colors neon-glow-hover"
+          >
+            {isPending ? 'Connecting...' : 'Connect Wallet'}
+          </button>
+          <p className="text-gray-500 text-sm">
+            Supported wallets: Sui Wallet, Ethos, Martian
+          </p>
         </div>
       </div>
     </div>

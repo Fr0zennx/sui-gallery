@@ -1,6 +1,6 @@
 import { useState } from 'react'
-import { useSignAndExecuteTransactionBlock, useCurrentAccount } from '@mysten/dapp-kit'
-import { TransactionBlock } from '@mysten/sui/transactions'
+import { useSignAndExecuteTransaction, useCurrentAccount } from '@mysten/dapp-kit'
+import { Transaction } from '@mysten/sui/transactions'
 
 interface CarModel {
   id: number
@@ -23,7 +23,7 @@ export default function MintForm({
   onMintSuccess,
 }: MintFormProps) {
   const account = useCurrentAccount()
-  const { mutate: signAndExecute, isPending } = useSignAndExecuteTransactionBlock()
+  const { mutate: signAndExecute, isPending } = useSignAndExecuteTransaction()
   const [carName, setCarName] = useState('')
   const [speed, setSpeed] = useState('')
   const [error, setError] = useState('')
@@ -52,7 +52,7 @@ export default function MintForm({
     }
 
     try {
-      const tx = new TransactionBlock()
+      const tx = new Transaction()
       const nameBytes = new TextEncoder().encode(carName)
 
       tx.moveCall({
@@ -65,7 +65,7 @@ export default function MintForm({
       })
 
       signAndExecute(
-        { transactionBlock: tx },
+        { transaction: tx },
         {
           onSuccess: (result) => {
             setSuccess(`NFT minted successfully! Digest: ${result.digest.slice(0, 10)}...`)

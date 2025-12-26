@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useQuery } from '@tanstack/react-query'
-import { useSuiClient, useSignAndExecuteTransactionBlock } from '@mysten/dapp-kit'
-import { TransactionBlock } from '@mysten/sui/transactions'
+import { useSuiClient, useSignAndExecuteTransaction } from '@mysten/dapp-kit'
+import { Transaction } from '@mysten/sui/transactions'
 
 interface MyGarageProps {
   packageId: string
@@ -17,7 +17,7 @@ interface CarNFT {
 
 export default function MyGarage({ packageId, userAddress }: MyGarageProps) {
   const client = useSuiClient()
-  const { mutate: signAndExecute } = useSignAndExecuteTransactionBlock()
+  const { mutate: signAndExecute } = useSignAndExecuteTransaction()
   const [listingPrices, setListingPrices] = useState<{ [key: string]: string }>({})
   const [error, setError] = useState('')
   const [success, setSuccess] = useState('')
@@ -64,7 +64,7 @@ export default function MyGarage({ packageId, userAddress }: MyGarageProps) {
       return
     }
 
-    const tx = new TransactionBlock()
+    const tx = new Transaction()
 
     tx.moveCall({
       target: `${packageId}::nft_shop::list_for_sale`,
@@ -75,7 +75,7 @@ export default function MyGarage({ packageId, userAddress }: MyGarageProps) {
     })
 
     signAndExecute(
-      { transactionBlock: tx },
+      { transaction: tx },
       {
         onSuccess: () => {
           setSuccess('NFT listed for sale!')

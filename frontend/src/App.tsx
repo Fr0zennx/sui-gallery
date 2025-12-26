@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useCurrentAccount, useSuiClient } from '@mysten/dapp-kit'
-import { QueryClient, useQuery } from '@tanstack/react-query'
+import { useQuery } from '@tanstack/react-query'
 import ConnectWallet from './components/ConnectWallet'
 import VisualSelector from './components/VisualSelector'
 import MintForm from './components/MintForm'
@@ -8,7 +8,7 @@ import MyGarage from './components/MyGarage'
 import Marketplace from './components/Marketplace'
 
 // Replace with your actual package ID after publishing
-const PACKAGE_ID = 'YOUR_PACKAGE_ID_HERE'
+const PACKAGE_ID = '0xc3e0d7b37341f46c2f3ec3b293073b5dfcf1736b14918cbcc7da226f04d3df9e';
 
 interface CarModel {
   id: number

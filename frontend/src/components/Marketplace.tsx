@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useQuery } from '@tanstack/react-query'
-import { useSuiClient, useSignAndExecuteTransactionBlock } from '@mysten/dapp-kit'
-import { TransactionBlock } from '@mysten/sui/transactions'
+import { useSuiClient, useSignAndExecuteTransaction } from '@mysten/dapp-kit'
+import { Transaction } from '@mysten/sui/transactions'
 import { MIST_PER_SUI } from '@mysten/sui/utils'
 
 interface MarketplaceProps {
@@ -19,7 +19,7 @@ interface Listing {
 
 export default function Marketplace({ packageId, userAddress }: MarketplaceProps) {
   const client = useSuiClient()
-  const { mutate: signAndExecute, isPending } = useSignAndExecuteTransactionBlock()
+  const { mutate: signAndExecute, isPending } = useSignAndExecuteTransaction()
   const [error, setError] = useState('')
   const [success, setSuccess] = useState('')
 
@@ -63,7 +63,7 @@ export default function Marketplace({ packageId, userAddress }: MarketplaceProps
 
   const handlePurchase = (listing: Listing) => {
     try {
-      const tx = new TransactionBlock()
+      const tx = new Transaction()
 
       // Split coins for payment
       const [coins] = tx.splitCoins(tx.gas, [tx.pure(BigInt(listing.price))])
@@ -75,7 +75,7 @@ export default function Marketplace({ packageId, userAddress }: MarketplaceProps
       })
 
       signAndExecute(
-        { transactionBlock: tx },
+        { transaction: tx },
         {
           onSuccess: () => {
             setSuccess(`Successfully purchased ${listing.nftName}!`)
