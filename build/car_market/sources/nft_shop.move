@@ -9,9 +9,8 @@ module car_market::nft_shop {
 
     // --- Error Codes ---
     const ERR_INVALID_IMAGE_ID: u64 = 1;
-    const ERR_SPEED_TOO_LOW: u64 = 2;
-    const ERR_SPEED_TOO_HIGH: u64 = 3;
-    const ERR_INSUFFICIENT_FUNDS: u64 = 4;
+    const ERR_SPEED_TOO_HIGH: u64 = 2;
+    const ERR_INSUFFICIENT_FUNDS: u64 = 3;
 
     // --- Struct Definitions ---
 
@@ -53,34 +52,32 @@ module car_market::nft_shop {
         buyer: address,
     }
 
-    // --- Image URL Verification ---
-    
+    // --- Görsel Havuzu (Image Pool) ---
     /// Returns a verified IPFS URL based on the image ID
     /// Valid image IDs: 1, 2, 3
     fun get_verified_url(image_id: u64): String {
         if (image_id == 1) {
-            string::utf8(b"https://ipfs.io/ipfs/car_red")
+            string::utf8(b"https://gold-rare-gecko-531.mypinata.cloud/ipfs/QmX_RedSpeedster")
         } else if (image_id == 2) {
-            string::utf8(b"https://ipfs.io/ipfs/car_blue")
+            string::utf8(b"https://gold-rare-gecko-531.mypinata.cloud/ipfs/QmY_MidnightDrifter")
         } else if (image_id == 3) {
-            string::utf8(b"https://ipfs.io/ipfs/car_black")
+            string::utf8(b"https://gold-rare-gecko-531.mypinata.cloud/ipfs/QmZ_DesertNomad")
         } else {
             abort ERR_INVALID_IMAGE_ID
         }
     }
 
-    // --- Public Functions ---
+    // --- Public Entry Functions ---
 
     /// Mints a new Car NFT with validated speed and image ID
     /// Speed must be between 1 and 100
-    public fun mint_car_nft(
+    public entry fun mint_car_nft(
         name_bytes: vector<u8>,
         speed: u64,
         image_id: u64,
         ctx: &mut TxContext,
     ) {
         // Validate speed is within range
-        assert!(speed >= 1, ERR_SPEED_TOO_LOW);
         assert!(speed <= 100, ERR_SPEED_TOO_HIGH);
 
         let name = string::utf8(name_bytes);
@@ -88,7 +85,7 @@ module car_market::nft_shop {
 
         let nft = CarNFT {
             id: object::new(ctx),
-            name: name,
+            name,
             speed,
             image_url,
         };
@@ -109,7 +106,7 @@ module car_market::nft_shop {
 
     /// Lists a Car NFT for sale in the marketplace
     /// The NFT is wrapped in a Listing object and shared
-    public fun list_for_sale(
+    public entry fun list_for_sale(
         nft: CarNFT,
         price: u64,
         ctx: &mut TxContext,
@@ -140,7 +137,7 @@ module car_market::nft_shop {
 
     /// Purchases a Car NFT from a listing
     /// The buyer must provide sufficient SUI coins to match the listing price
-    public fun purchase(
+    public entry fun purchase(
         listing: Listing,
         payment: Coin<SUI>,
         ctx: &mut TxContext,

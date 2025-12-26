@@ -7,23 +7,21 @@ export default defineConfig({
   server: {
     port: 5173,
     host: '127.0.0.1',
+    headers: {
+      'Content-Security-Policy': "script-src 'self' 'unsafe-eval' 'unsafe-inline' blob:; object-src 'self';"
+    },
     hmr: {
       host: '127.0.0.1',
       port: 5173,
     },
-    middlewareMode: false,
-    middleware: [
-      (req, res, next) => {
-        // Remove CSP header for development
-        res.removeHeader('Content-Security-Policy');
-        next();
-      },
-    ],
   },
   resolve: {
     alias: {
       '@': resolve(__dirname, './src'),
     },
+  },
+  build: {
+    sourcemap: false,
   },
   optimizeDeps: {
     esbuildOptions: {

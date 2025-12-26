@@ -8,7 +8,7 @@ import MyGarage from './components/MyGarage'
 import Marketplace from './components/Marketplace'
 
 // Replace with your actual package ID after publishing
-const PACKAGE_ID = '0xc3e0d7b37341f46c2f3ec3b293073b5dfcf1736b14918cbcc7da226f04d3df9e';
+const PACKAGE_ID = '0xaddd769b70261c5ca82b96af99268722fc084551adae4b6f7aad408b782eaa0c';
 
 interface CarModel {
   id: number
@@ -22,19 +22,19 @@ const carModels: CarModel[] = [
     id: 1,
     name: 'Red Speedster',
     speed: '95',
-    imageUrl: 'https://ipfs.io/ipfs/car_red',
+    imageUrl: 'https://gold-rare-gecko-531.mypinata.cloud/ipfs/QmX_RedSpeedster',
   },
   {
     id: 2,
     name: 'Midnight Drifter',
     speed: '85',
-    imageUrl: 'https://ipfs.io/ipfs/car_blue',
+    imageUrl: 'https://gold-rare-gecko-531.mypinata.cloud/ipfs/QmY_MidnightDrifter',
   },
   {
     id: 3,
     name: 'Desert Nomad',
     speed: '75',
-    imageUrl: 'https://ipfs.io/ipfs/car_black',
+    imageUrl: 'https://gold-rare-gecko-531.mypinata.cloud/ipfs/QmZ_DesertNomad',
   },
 ]
 
