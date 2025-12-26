@@ -1,0 +1,36 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  @apply bg-black text-white;
+}
+
+.neon-orange {
+  color: #ff8c00;
+}
+
+.neon-orange-border {
+  border-color: #ff8c00;
+}
+
+.neon-orange-bg {
+  background-color: #ff8c00;
+}
+
+.neon-glow {
+  box-shadow: 0 0 10px rgba(255, 140, 0, 0.5);
+}
+
+.neon-glow-hover:hover {
+  box-shadow: 0 0 20px rgba(255, 140, 0, 0.8);
+}
+
+.car-card {
+  @apply relative overflow-hidden rounded-lg transition-all duration-300;
+}
+
+.car-card:hover {
+  @apply shadow-2xl neon-glow-hover;
+  transform: translateY(-8px);
+}
