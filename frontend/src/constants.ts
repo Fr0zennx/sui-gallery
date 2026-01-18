@@ -1,7 +1,7 @@
 // Contract information - Update after deployment
 export const PACKAGE_ID = "<PAKET_IDINIZ>"; // Gerçek package ID'yi buraya girin
 export const MODULE_NAME = "car_nft";
-export const CONTRACT_ADDRESS = "car_market";
+export const CONTRACT_ADDRESS = "car_market"; // Package name veya address alias
 
 // Sui Clock object
 export const SUI_CLOCK_OBJECT_ID = "0x6" as const;
@@ -35,8 +35,8 @@ export const CAR_MODELS = [
 ] as const;
 
 // Speed limits
-export const MIN_SPEED = 1;
-export const MAX_SPEED = 100;
+export const MIN_SPEED = 0;
+export const MAX_SPEED = 300;
 
 // Fonksiyon isimleri
 export const FUNC_MINT_CAR = "mint_car";

@@ -2,41 +2,77 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  font-family: 'Inter', system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+@layer base {
+  :root {
+    font-family: 'Inter', system-ui, sans-serif;
+  }
 
-  color-scheme: dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #0a0a0a;
+  body {
+    @apply bg-surface-dark text-zinc-100 antialiased;
+  }
 
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-body {
-  margin: 0;
-  min-width: 320px;
-  min-height: 100vh;
-  background: linear-gradient(180deg, #0a0a0a 0%, #1a1a1a 100%);
-  background: #0a0a0a;
-  color: #fff;
+  ::selection {
+    @apply bg-accent-blue/30;
+  }
 }
 
 @layer components {
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg font-medium transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+
   .btn-primary {
-    @apply bg-gradient-to-r from-racing-accent to-orange-500 text-white font-bold py-3 px-6 rounded-lg 
-           hover:shadow-lg hover:shadow-racing-accent/50 transition-all duration-300
-           transform hover:scale-105 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed;
+    @apply btn bg-accent-blue text-white hover:bg-blue-500 active:scale-[0.98];
   }
-  
+
   .btn-secondary {
-    @apply bg-gray-800 text-white font-semibold py-2 px-4 rounded-lg 
-           border border-gray-700 hover:border-racing-accent transition-all duration-200;
+    @apply btn border border-zinc-700 text-zinc-300 hover:border-zinc-500 hover:text-white;
   }
-  
+
+  .btn-ghost {
+    @apply btn text-zinc-400 hover:text-white hover:bg-zinc-800;
+  }
+
   .card {
-    @apply bg-gradient-to-br from-gray-900 to-gray-800 rounded-xl p-6
+    @apply bg-zinc-900/60 backdrop-blur-sm border border-zinc-800 rounded-xl transition-all duration-200;
+  }
+
+  .card-hover {
+    @apply card hover:border-zinc-700 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-black/20;
+  }
+
+  .input {
+    @apply w-full bg-zinc-900 border border-zinc-700 rounded-lg px-4 py-3 text-white placeholder:text-zinc-500 focus:border-accent-blue focus:ring-1 focus:ring-accent-blue/50 outline-none transition-colors;
+  }
+
+  .glass {
+    @apply bg-zinc-900/80 backdrop-blur-md border border-zinc-800;
+  }
+
+  .badge {
+    @apply inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium;
+  }
+}
+
+@layer utilities {
+  .text-gradient {
+    @apply bg-gradient-to-r from-accent-blue to-accent-cyan bg-clip-text text-transparent;
+  }
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-zinc-700 rounded-full;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-zinc-600;
+}
